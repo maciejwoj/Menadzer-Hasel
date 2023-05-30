@@ -5,21 +5,100 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <vector>
+#include <sstream>
 
+
+using namespace std;
 PasswordManager::PasswordManager() {
 
 }
 
-void PasswordManager::loadFile(std::string path) {
+void PasswordManager::loadFile(const string& path) {
+    ifstream file(path);
+    if(!file){
+        cout << "there is no file with this name"<<endl;
+    }
+    string line;
+    while (getline(file,line)){
+        vector<string>row;
+        istringstream iss(line);
+        string word;
+        while(getline(iss,word,';')){
+            row.push_back(word);
+        }
+        data.push_back(row);
+    }
+}
+
+string PasswordManager::encryption(const string &password, const string& word) {
+
+    string encrypted;
+    for (int i = 0; i < word.length(); i++) {
+        int numberCode = (word[i] + password[i % password.length()]) % 256;
+            encrypted += numberCode;
+    }
+
+    return encrypted;
+}
+
+string PasswordManager::decryption(const string &password, const string& word) {
+
+    string decrypted;
+    for (int i = 0; i < word.length(); i++) {
+        int numberCode = (word[i] - password[i % password.length()]) % 256;
+        if(word[i] - password[i % password.length()] < 1){
+            numberCode = (word[i] - password[i % password.length()]) + 256;
+        }
+        decrypted += numberCode;
+    }
+
+    return decrypted;
+}
+
+void PasswordManager::codeFile(const string& password) {
+
+}
+
+void PasswordManager::uncodeFile(const string& password){
 
 }
 
 void PasswordManager::saveFile(std::string path) {
+    ofstream file(path);
+    if(!file){
+        cout << "there is no file with this name"<<endl;
+    }
 
+    for (const auto& row : data) {
+        for (const auto& word : row) {
+            file << word << "; ";
+        }
+        file << endl;
+    }
+
+    file.close();
+}
+
+
+void PasswordManager::showFile() {
+        for (const auto& row : data) {
+        for (const auto& word : row) {
+            std::cout << word << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 void PasswordManager::addPassword(Password password) {
-
+    vector<string>newRow;
+    stringstream ss(password.toString());
+    string word;
+    while(getline(ss, word, ';')){
+        newRow.push_back(word);
+    }
+    data.push_back(newRow);
 }
 void PasswordManager::editPassword(Password password) {
 

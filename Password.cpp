@@ -12,11 +12,11 @@ Password::Password(const std::string& name, const std::string& password, const s
         : name(name), password(password), category(category), website(website), login(login) {}
 
 std::string Password::toString() const {
-    std::string result = "Name: " + name + "   "
-    +"Password: " + password + "   " +
-    "Category: " + category + "   " +
-    "Website: " + website + "   " +
-    "Login: " + login;
+    std::string result = name + "; "
+    + password + "; " +
+    category + "; " +
+    website + "; " +
+    login;
     return result;
 }
 
