@@ -58,11 +58,27 @@ string PasswordManager::decryption(const string &password, const string& word) {
 }
 
 void PasswordManager::codeFile(const string& password) {
+    for(int i = 0; i < data.size(); i++){
+        for(int j = 0; j < data[i].size(); j++){
+            data[i][j] = encryption(password, data[i][j]);
+        }
+    }
+
+//    for (const auto& row : data) {
+//        for (const auto& word : row) {
+//            cout << encryption(password, word) << "; ";
+//        }
+//        cout << endl;
+//    }
 
 }
 
 void PasswordManager::uncodeFile(const string& password){
-
+    for(int i = 0; i < data.size(); i++){
+        for(int j = 0; j < data[i].size(); j++){
+            data[i][j] = decryption(password, data[i][j]);
+        }
+    }
 }
 
 void PasswordManager::saveFile(std::string path) {
