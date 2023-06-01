@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include "Password.h"
+#include "Categories.h"
 
 class PasswordManager{
 public:
@@ -15,10 +16,11 @@ public:
     void loadFile(const std::string& path);
     void saveFile(std::string path);
     void addPassword(Password password);
-    void editPassword(Password password);
-    void deletePassword(Password password);
+    void editPassword(int passwordEditIndex);
+    void deletePassword(int passwordIndex);
+    void deleteCategory(std::string categoryName);
     void searchPassword(std::string search);
-    void sortPassword(std::string sortBy);
+    void sortPassword(int indexColumn);
     static std::string encryption(const std::string& password, const std::string& word);
     static std::string decryption(const std::string& password, const std::string& word);
     void codeFile(const std::string& password);
@@ -26,8 +28,6 @@ public:
     static std::string generatePassword(int length, bool upperCase, bool specialChars);
     std::string checkPassword(const std::string& password);
     void showFile();
-
-
 };
 
 #endif //MENADZER_HASEL_PASSWORDMANAGER_H

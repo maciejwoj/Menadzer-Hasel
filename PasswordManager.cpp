@@ -2,6 +2,7 @@
 // Created by Maciek on 27.05.2023.
 //
 #include "PasswordManager.h"
+#include "Categories.h"
 #include <string>
 #include <cstdlib>
 #include <ctime>
@@ -11,9 +12,7 @@
 
 
 using namespace std;
-PasswordManager::PasswordManager() {
-
-}
+PasswordManager::PasswordManager() = default;
 
 void PasswordManager::loadFile(const string& path) {
     ifstream file(path);
@@ -64,13 +63,6 @@ void PasswordManager::codeFile(const string& password) {
         }
     }
 
-//    for (const auto& row : data) {
-//        for (const auto& word : row) {
-//            cout << encryption(password, word) << "; ";
-//        }
-//        cout << endl;
-//    }
-
 }
 
 void PasswordManager::uncodeFile(const string& password){
@@ -89,7 +81,7 @@ void PasswordManager::saveFile(std::string path) {
 
     for (const auto& row : data) {
         for (const auto& word : row) {
-            file << word << "; ";
+            file << word << ";";
         }
         file << endl;
     }
@@ -99,11 +91,14 @@ void PasswordManager::saveFile(std::string path) {
 
 
 void PasswordManager::showFile() {
-        for (const auto& row : data) {
+    int index = 1;
+    for (const auto& row : data) {
+        cout<<index<<". ";
+        index ++;
         for (const auto& word : row) {
-            std::cout << word << " ";
+            cout << word << " ";
         }
-        std::cout << std::endl;
+    cout << endl;
     }
 }
 
@@ -116,20 +111,49 @@ void PasswordManager::addPassword(Password password) {
     }
     data.push_back(newRow);
 }
-void PasswordManager::editPassword(Password password) {
-
+void PasswordManager::editPassword(int passwordEditIndex) {
+    cout << data[passwordEditIndex][1]<<endl;
+    string newEditPassword;
+    cout << "enter your edit password here:  ";
+    cin >> newEditPassword;
+    data[passwordEditIndex][1] = newEditPassword;
 }
-void PasswordManager::deletePassword(Password password) {
-
+void PasswordManager::deletePassword(int passwordIndex) {
+    data.erase(data.begin() + passwordIndex);
 }
-void PasswordManager::searchPassword(std::string search) {
-
+void PasswordManager::searchPassword(string search) {
+    bool isInFile = false;
+    for(int i = 0; i < data.size(); i++){
+        for(int j = 0; j < data[i].size(); j++){
+            if(search == data[i][j]){
+                isInFile = true;
+                for(auto e : data[i]){
+                    cout << e << " ";
+                }
+            }
+        }
+    }
+    if (!isInFile){
+        cout<<"this password is not in file";
+    }
+    cout << endl;
 }
-void PasswordManager::sortPassword(std::string sortBy) {
-
+void PasswordManager::sortPassword(int indexColumn){
+    sort(data.begin(),data.end(), [indexColumn](vector<basic_string<char>> row1, const vector<basic_string<char>> row2){
+        return row1[indexColumn] < row2[indexColumn];
+    });
 }
 
-std::string PasswordManager::generatePassword(int length, bool upperCase, bool specialChars) {
+void PasswordManager::deleteCategory(std::string categoryName) {
+    for(int i = 0; i < data.size(); i++){
+        if(data[i][2] == categoryName){
+            data.erase(data.begin() + i);
+            i--;
+        }
+    }
+}
+
+string PasswordManager::generatePassword(int length, bool upperCase, bool specialChars) {
     std::string newPassword;
     srand(static_cast<unsigned>(time(0)));
 
@@ -151,7 +175,21 @@ std::string PasswordManager::generatePassword(int length, bool upperCase, bool s
 
 
 
+
+
 std::string PasswordManager::checkPassword(const std::string& password) {
+    bool isInFile = false;
+    for(int i = 0; i < data.size(); i++){
+        for(int j = 0; j < data[i].size(); j++){
+            if(password == data[i][j]){
+                isInFile = true;
+            }
+        }
+    }
+    if (isInFile){
+        return "this password is already been used";
+    }
+
     if(password.length() < 8){
         return "weak";
     }
@@ -174,14 +212,11 @@ std::string PasswordManager::checkPassword(const std::string& password) {
         }
     }
 
-
-
     if(hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar || hasUpperCase && hasLowerCase && !hasDigit && hasSpecialChar){
-        return "strong";
+        return "your password is strong";
     }else if(hasUpperCase && hasLowerCase && hasDigit && !hasSpecialChar){
-        return "normal";
+        return "your password is normal";
     }else
-        return "weak";
-
-
+        return "your password is weak";
 }
+

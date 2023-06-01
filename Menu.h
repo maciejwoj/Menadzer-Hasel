@@ -10,7 +10,8 @@
 class Menu {
 public:
     Menu();
-    void choice();
+
+    [[noreturn]] static void choice();
 };
 
 

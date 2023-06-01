@@ -1,46 +1,147 @@
 #include <iostream>
+#include <fstream>
 #include "Menu.h"
 
 
 #include "Password.h"
 #include "PasswordManager.h"
+using namespace std;
 
 int main() {
 
-    //    Menu menu;
-//    menu.choice();
+    Menu menu;
+    menu.choice();
 
-
-    Password password("haslo do binance", "jestemNajlepszy!@!@", "hobby");
-//    std::cout << password.toString() << std::endl;
-    PasswordManager passwordManager;
-    passwordManager.loadFile("..\\maciek.txt");
-    passwordManager.showFile();
-    passwordManager.codeFile("mareczek");
-    passwordManager.showFile();
-    passwordManager.uncodeFile("mareczek");
-    passwordManager.showFile();
-
-
-
-//    std::string test1 = passwordManager.encryption("KOra!", "jestemNajlepszy!@!@");
-//    std::cout << test1 << std::endl;
-//    std::string test2 = passwordManager.decryption("KOra!",test1);
-//    std::cout << test2;
-//    std::string password = passwordManager.generatePassword(20, true, true);
-//    std::cout << password << std::endl;
-//    std::string odp = passwordManager.checkPassword(password);
-//    std::cout << odp;
-
-
-//    std::cout << passwordManager.data[0][1];
-//    passwordManager.addPassword(password);
-//    Password password1("haslo do revoluta", "KHJkhj234hj1!", "hobby","revolut.com", "maciunio");
-//    passwordManager.addPassword(password1);
-//    passwordManager.showFile();
-//    passwordManager.saveFile("..\\maciek.txt");
+//    Categories categories2;
+//    PasswordManager passwordManager2;
+//    passwordManager2.loadFile("..\\maciek.txt");
 //
+//    passwordManager2.uncodeFile("mareczek");
+//    for(int i = 0; i < passwordManager2.data.size();i++){
+//        categories2.addCategory(passwordManager2.data[i][2]);
+//    }
+//    passwordManager2.showFile();
 
+//    string passwordName;
+//    cout << "enter name: ";
+//    cin >> passwordName;
+//    cout << endl;
+//    categories2.showCategoryList();
+//    int passwordCategory;
+//    cout << "enter category number: ";
+//    cin >> passwordCategory;
+//    cout << endl;
+//
+//    cout << "chose option " << endl <<
+//         "1. Add your own " << endl <<
+//         "2. generate password" << endl <<
+//         "Enter your choice: ";
+//    int d4;
+//    cin >> d4;
+//    switch (d4) {
+//        case 1: {
+//            string passwordToAdd;
+//            cout << "enter password: ";
+//            cin >> passwordToAdd;
+//            cout << endl;
+//            cout << passwordManager2.checkPassword(passwordToAdd)<<endl;
+//            int d5;
+//            cout << "Do you want to add website and login?"<< endl <<
+//            "1. YES " << endl <<
+//            "2. NO" << endl <<
+//            "Enter your choice:  ";
+//            cin >> d5;
+//            switch(d5){
+//                case 1:{
+//                    string passwordWebsite;
+//                    cout << "enter website: ";
+//                    cin >> passwordWebsite;
+//                    string passwordLogin;
+//                    cout << "enter login: ";
+//                    cin >> passwordLogin;
+//                    passwordManager2.addPassword(
+//                            Password(passwordName,passwordToAdd,
+//                                     categories2.categoriesList[passwordCategory-1],
+//                                     passwordWebsite,passwordLogin));
+//                    break;
+//                }
+//                case 2:{
+//                    passwordManager2.addPassword(
+//                            Password(passwordName,passwordToAdd,
+//                                     categories2.categoriesList[passwordCategory-1]));
+//                    break;
+//                }
+//            }
+//
+//            passwordManager2.showFile();
+//            break;
+//        }
+//        case 2:{
+//            string passwordToAdd2;
+//            int passwordLength;
+//            bool upperCase;
+//            int upperCased;
+//            bool specialChars;
+//            int specialCharsd;
+//            cout << "enter length of your password: ";
+//            cin >> passwordLength;
+//            cout << "Do you want upperCase in your password?"<< endl <<
+//                 "1. YES " << endl <<
+//                 "2. NO" << endl <<
+//                 "Enter your choice:  ";
+//            cin >> upperCased;
+//            if(upperCased == 1){
+//                upperCased = true;
+//            }else{
+//                upperCased = false;
+//            }
+//            cout << "Do you want special character in your password?"<< endl <<
+//                 "1. YES " << endl <<
+//                 "2. NO" << endl <<
+//                 "Enter your choice:  ";
+//            cin >> specialCharsd;
+//            if(specialCharsd == 1){
+//                specialChars = true;
+//            }else{
+//                specialChars = false;
+//            }
+//
+//            passwordToAdd2 = PasswordManager::generatePassword(passwordLength,upperCase,specialCharsd);
+//            int d6;
+//            cout << "Do you want to add website and login?"<< endl <<
+//                 "1. YES " << endl <<
+//                 "2. NO" << endl <<
+//                 "Enter your choice:  ";
+//            cin >> d6;
+//            switch(d6){
+//                case 1:{
+//                    string passwordWebsite;
+//                    cout << "enter website: ";
+//                    cin >> passwordWebsite;
+//                    string passwordLogin;
+//                    cout << "enter login: ";
+//                    cin >> passwordLogin;
+//                    passwordManager2.addPassword(
+//                            Password(passwordName,
+//                                     passwordToAdd2,
+//                                     categories2.categoriesList[passwordCategory-1],
+//                                     passwordWebsite,passwordLogin));
+//                    break;
+//                }
+//                case 2:{
+//                    passwordManager2.addPassword(
+//                            Password(passwordName,
+//                                     passwordToAdd2,
+//                                     categories2.categoriesList[passwordCategory-1]));
+//                    break;
+//                }
+//            }
+//            passwordManager2.showFile();
+//
+//
+//        }
+//
+//    }
 
 
     return 0;
