@@ -13,14 +13,15 @@ Categories categories;
 Menu::Menu() = default;
 
 [[noreturn]] void Menu::choice() {
+    string files[] = {"maciek.txt", "radek.txt", "wojtek.txt"};
+    int size = sizeof(files) / sizeof(files[0]);
     string password;
     string absolutePath;
     bool end = false;
     while (!end) {
         cout << "~~~~~~~~~~s27578~~~~~~~~~~\n" <<
-             "1. Choose a file from the list\n" <<
-             "2. Enter absolute path to the file\n" <<
-             "3. Exit\n" <<
+             "1. Open file\n" <<
+             "2. Exit\n" <<
              "~~~~~~~~~~s27578~~~~~~~~~~\n";
 
         cout << "Enter your choice: ";
@@ -30,35 +31,39 @@ Menu::Menu() = default;
 
         switch (ch) {
             case 1: {
-                cout << "choose file";
-                cin >> absolutePath;
-                passwordManager.loadFile(absolutePath);
-                passwordManager.codeFile("mareczek");
-                cout << "enter password to that file: ";
-                cin >> password;
-                passwordManager.uncodeFile(password);
-                passwordManager.showFile();
-                break;
-            }
-            case 2: {
-                cout << "Enter path to the file: ";
-                cin >> absolutePath;
+                int d0;
+                cout << "Which file you wanna open: " << endl;
+                for (int i = 0; i < size; i++) {
+                    cout <<i+1<<". "<< files[i] << endl;
+                }
+                cout << "4. enter absolute path to the file";
+                cin >> d0;
+                if(d0 == 1 or d0 == 2 or d0 == 3){
+                    absolutePath = "..\\"+files[d0-1];
+                }else{
+                    cout << "Enter path to the file:  ";
+                    cin >> absolutePath;
+                }
+
+
                 ifstream file(absolutePath);
                 if (!file) {
                     cout << "there is no file with this name, please try again" << endl;
                     break;
                 }
                 passwordManager.loadFile(absolutePath);
+                cout << "last time someone open this file: ";
+                passwordManager.readTimestamp();
+                cout << endl;
                 cout << "enter password to that file: " << endl;
-
                 cin >> password;
                 passwordManager.uncodeFile(password);
                 for(int i = 0; i < passwordManager.data.size();i++){
                     categories.addCategory(passwordManager.data[i][2]);
                 }
-                passwordManager.showFile();
+                cout << "example: " << passwordManager.data[0][0]<< endl << endl;
 
-                cout << "Is this is your file? " << endl <<
+                cout << "whether the file is properly decoded ? " << endl <<
                      "1. Yes " << endl <<
                      "2. No" << endl <<
                      "Enter your choice: ";
@@ -76,7 +81,8 @@ Menu::Menu() = default;
                                  "5. delete passwords\n" <<
                                  "6. add category\n" <<
                                  "7. delete category\n" <<
-                                 "8. Exit\n" <<
+                                 "8. show file\n" <<
+                                 "9. Exit\n" <<
                                  "~~~~~~~~~~s27578~~~~~~~~~~\n";
 
                             cout << "Enter your choice: ";
@@ -276,8 +282,13 @@ Menu::Menu() = default;
                                     }
                                     break;
                                 }
-                                case 8:
+                                case 8: {
+                                    passwordManager.showFile();
+                                    break;
+                                }
+                                case 9:
                                     passwordManager.codeFile(password);
+                                    passwordManager.addTimestamp();
                                     passwordManager.saveFile(absolutePath);
                                     cout << "Your file has been safe. Exiting the program.\n";
                                     end2 = true;
@@ -298,7 +309,7 @@ Menu::Menu() = default;
                 break;
             }
 
-            case 3:
+            case 2:
                 cout << "Exiting the program.\n";
                 end = true;
                 break;

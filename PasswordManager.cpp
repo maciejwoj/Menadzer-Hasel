@@ -220,3 +220,22 @@ std::string PasswordManager::checkPassword(const std::string& password) {
         return "your password is weak";
 }
 
+void PasswordManager::addTimestamp() {
+    vector<string>tsrow;
+    time_t currentTime = ::time(nullptr);
+    tm* timeinfo = ::localtime(&currentTime);
+    int h = timeinfo->tm_hour;
+    int min = timeinfo->tm_min;
+    int sec = timeinfo->tm_sec;
+    data[0].insert(data[0].begin(), to_string(h));
+    data[1].insert(data[1].begin(), to_string(min));
+    data[2].insert(data[2].begin(), to_string(sec));
+
+}
+
+void PasswordManager::readTimestamp() {
+    cout << data[0][0] <<":"<< data[1][0] << ":"<<data[2][0] << endl;
+    data[0].erase(data[0].begin());
+    data[1].erase(data[1].begin());
+    data[2].erase(data[2].begin());
+}

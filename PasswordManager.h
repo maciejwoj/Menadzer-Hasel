@@ -21,6 +21,8 @@ public:
     void deleteCategory(std::string categoryName);
     void searchPassword(std::string search);
     void sortPassword(int indexColumn);
+    void addTimestamp();
+    void readTimestamp();
     static std::string encryption(const std::string& password, const std::string& word);
     static std::string decryption(const std::string& password, const std::string& word);
     void codeFile(const std::string& password);

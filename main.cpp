@@ -12,11 +12,18 @@ int main() {
     Menu menu;
     menu.choice();
 
+
 //    Categories categories2;
 //    PasswordManager passwordManager2;
-//    passwordManager2.loadFile("..\\maciek.txt");
-//
-//    passwordManager2.uncodeFile("mareczek");
+//    passwordManager2.loadFile("..\\wojtek.txt");
+//    passwordManager2.addTimestamp();
+//    passwordManager2.showFile();
+//    passwordManager2.saveFile("..\\wojtek.txt");
+//    passwordManager2.readTimestamp();
+//    passwordManager2.uncodeFile("hasloDoWojtek");
+//    passwordManager2.showFile();
+
+//    passwordManager2.uncodeFile("hasloDoWojtek");
 //    for(int i = 0; i < passwordManager2.data.size();i++){
 //        categories2.addCategory(passwordManager2.data[i][2]);
 //    }
